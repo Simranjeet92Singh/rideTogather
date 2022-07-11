@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Ride Togather</string>
+
+
+    //google map api key
+
+    <string name="map_key" templateMergeStrategy="perserve" translatable="false">AIzaSyCTTxD1_L8CIGGTcVVoEsHye9SY4NVkepY</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>
