@@ -2,7 +2,6 @@ package com.ridetogather.ridetogather.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -13,10 +12,16 @@ import com.ridetogather.ridetogather.R
 import com.ridetogather.ridetogather.databinding.ActivityMapsBinding
 
 
+
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
+
+
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
