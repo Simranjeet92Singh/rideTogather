@@ -19,7 +19,7 @@
         map:layout_constraintStart_toStartOf="parent"
         map:layout_constraintTop_toTopOf="parent">
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/tv_from"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -29,9 +29,9 @@
             android:hint="     from"
             android:imeOptions="actionSearch">
 
-        </EditText>
+        </AutoCompleteTextView>
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/tv_to"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -40,7 +40,9 @@
             android:lines="1"
             android:imeOptions="actionSearch">
 
-        </EditText>
+        </AutoCompleteTextView>
+
+
 
     </LinearLayout>
 

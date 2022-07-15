@@ -10,9 +10,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -24,10 +22,13 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.AutocompletePrediction
 import com.google.android.libraries.places.api.net.PlacesClient
 import com.ridetogather.ridetogather.R
+import com.ridetogather.ridetogather.adapter.AutoCompleteAdapter
 import com.ridetogather.ridetogather.databinding.ActivityMapsBinding
+import com.ridetogather.ridetogather.model.PlaceModel
 import java.io.IOException
 import java.util.jar.Manifest
 
@@ -42,8 +43,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mLastKnownLocation: Location
     private lateinit var locationCallback: LocationCallback
 
-    private lateinit var tv_from : EditText
-    private lateinit var tv_to : EditText
+    private lateinit var tv_from : AutoCompleteTextView
+    private lateinit var tv_to : AutoCompleteTextView
+
+    private var placeAdapter: AutoCompleteAdapter? = null
+
 
 
     var mLocationPermissionGranted = false;
@@ -83,7 +87,24 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             return@setOnEditorActionListener false
         }
     }
+    private fun Placeslist() {
+        Places.initialize(this, getString(R.string.map_key))
+        mPlacesClient = Places.createClient(this)
 
+
+
+        placeAdapter = AutoCompleteAdapter(this, R.layout.layout_item_places, mPlacesClient)
+        tv_from.setAdapter(placeAdapter)
+
+        tv_from.onItemClickListener =
+            AdapterView.OnItemClickListener { parent, _, position, _ ->
+                val place = parent.getItemAtPosition(position) as PlaceModel
+                tv_from.apply {
+                    setText(place.toString())
+                    setSelection(tv_from.length())
+                }
+            }
+    }
     private fun geoLocate() {
         val searchString = tv_from.text.toString()
         var geocoder = Geocoder(this)
@@ -139,6 +160,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             val mapFragment = supportFragmentManager
                 .findFragmentById(R.id.map) as SupportMapFragment
             mapFragment.getMapAsync(this)
+            Placeslist()
         }
 
    
