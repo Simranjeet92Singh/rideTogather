@@ -66,6 +66,10 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-compiler:$lifecycleVersion"
 
+    //facebook
+    implementation 'com.facebook.android:facebook-login:latest.release'
+
+
 }
 
 
