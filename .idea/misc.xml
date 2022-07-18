@@ -3,16 +3,27 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="../../../layout/custom_preview.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_baseline_calendar_month_24.xml" value="0.1975" />
+        <entry key="app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.161" />
+        <entry key="app/src/main/res/drawable/ic_baseline_trip_origin_24.xml" value="0.186" />
+        <entry key="app/src/main/res/layout/activity_extra.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_main_screen.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_map.xml" value="0.33177083333333335" />
         <entry key="app/src/main/res/layout/activity_maps.xml" value="0.30978260869565216" />
+
+        <entry key="app/src/main/res/layout/fragment_date_picker.xml" value="0.23802083333333332" />
+        <entry key="app/src/main/res/layout/fragment_time_picker.xml" value="0.23802083333333332" />
+
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.33177083333333335" />
         <entry key="app/src/main/res/layout/auto_complete_fragment.xml" value="0.3307291666666667" />
         <entry key="app/src/main/res/layout/layout_item_places.xml" value="0.3307291666666667" />
+
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_X" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

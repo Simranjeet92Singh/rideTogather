@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    tools:context=".ui.MainScreenActivity">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="250dp"
+        android:src="@drawable/newphoto"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="303dp"
+        android:layout_height="51dp"
+        android:text="Pick Your Own Rides"
+        android:textColor="@color/black"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="34dp" />
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="305dp"
+        android:layout_height="190dp"
+        android:layout_marginTop="65dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.287">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/white"
+            app:cardCornerRadius="30dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="3">
+
+                <EditText
+                    android:id="@+id/main_leaving_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/ic_baseline_trip_origin_24"
+                    android:hint="Leaving from"
+                    android:minHeight="48dp" />
+
+                <EditText
+                    android:id="@+id/main_going_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/ic_baseline_trip_origin_24"
+                    android:hint="Going to"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+                <androidx.gridlayout.widget.GridLayout
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <Button
+                        android:id="@+id/show_Date_Picker"
+                        android:layout_width="183dp"
+                        android:layout_height="43dp"
+                        android:backgroundTint="@color/white"
+                        android:drawableLeft="@drawable/ic_baseline_calendar_month_24"
+                        android:hint="Today"
+                        android:onClick="showDatePickerDialog"
+                        android:textColor="@color/black"
+                        tools:ignore="TouchTargetSizeCheck" />
+
+                    <TextView
+                        android:id="@+id/text_view_id"
+                        android:layout_width="119dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableRight="@drawable/ic_baseline_person_24"
+                        android:text="1"
+                        android:textAlignment="center"
+                        android:textStyle="bold"
+                        app:layout_column="1"
+                        app:layout_row="0" />
+
+                </androidx.gridlayout.widget.GridLayout>
+
+                <Button
+                    android:id="@+id/main_btn_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/blue"
+                    android:text="Search"
+                    android:textColor="@color/white"></Button>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </FrameLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="409dp"
+        android:layout_height="337dp"
+        android:layout_marginTop="190dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/frameLayout" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
