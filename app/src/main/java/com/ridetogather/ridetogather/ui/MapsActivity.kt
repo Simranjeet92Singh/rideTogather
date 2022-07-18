@@ -2,11 +2,15 @@ package com.ridetogather.ridetogather.ui
 
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import android.location.Address
+import android.location.Geocoder
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
+import android.view.KeyEvent
+import android.view.inputmethod.EditorInfo
+import android.widget.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -18,10 +22,14 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.AutocompletePrediction
 import com.google.android.libraries.places.api.net.PlacesClient
 import com.ridetogather.ridetogather.R
+import com.ridetogather.ridetogather.adapter.AutoCompleteAdapter
 import com.ridetogather.ridetogather.databinding.ActivityMapsBinding
+import com.ridetogather.ridetogather.model.PlaceModel
+import java.io.IOException
 import java.util.jar.Manifest
 
 
@@ -35,6 +43,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mLastKnownLocation: Location
     private lateinit var locationCallback: LocationCallback
 
+    private lateinit var tv_from : AutoCompleteTextView
+    private lateinit var tv_to : AutoCompleteTextView
+
+    private var placeAdapter: AutoCompleteAdapter? = null
+
+
+
     var mLocationPermissionGranted = false;
 
 
@@ -47,8 +62,64 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        binding = ActivityMapsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        tv_from=findViewById(R.id.tv_from)
+        tv_to = findViewById(R.id.tv_to)
         getLocatonPermission()
+
+    }
+
+    private fun init(){
+
+
+
+        tv_from.setOnEditorActionListener { v, actionId, event ->
+
+            if(actionId == EditorInfo.IME_ACTION_SEARCH
+                || actionId ==EditorInfo.IME_ACTION_DONE
+                || event.action == KeyEvent.ACTION_DOWN
+                || event.action == KeyEvent.KEYCODE_ENTER){
+
+                geoLocate()
+            }
+
+            return@setOnEditorActionListener false
+        }
+    }
+    private fun Placeslist() {
+        Places.initialize(this, getString(R.string.map_key))
+        mPlacesClient = Places.createClient(this)
+
+
+
+        placeAdapter = AutoCompleteAdapter(this, R.layout.layout_item_places, mPlacesClient)
+        tv_from.setAdapter(placeAdapter)
+
+        tv_from.onItemClickListener =
+            AdapterView.OnItemClickListener { parent, _, position, _ ->
+                val place = parent.getItemAtPosition(position) as PlaceModel
+                tv_from.apply {
+                    setText(place.toString())
+                    setSelection(tv_from.length())
+                }
+            }
+    }
+    private fun geoLocate() {
+        val searchString = tv_from.text.toString()
+        var geocoder = Geocoder(this)
+        var list : List<Address> = ArrayList()
+        try {
+        list = geocoder.getFromLocationName(searchString,1)
+        }catch (e:IOException){
+            Log.e("IOException : " , e.message.toString())
+        }
+        if(list.size>0){
+            val address = list.get(0)
+            val newLatLng= LatLng(address.latitude,address.longitude)
+            moveCamera(newLatLng,mapObject.DEFAULT_ZOOM,address.getAddressLine(0))
+            Log.d("+++++=======++++",address.toString())
+        }
 
     }
 
@@ -62,7 +133,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     if(location.isSuccessful){
                         val currentLocation = it.getResult()
                         val newLatLng = LatLng(currentLocation.latitude,currentLocation.longitude)
-                        moveCamera(newLatLng,mapObject.DEFAULT_ZOOM)
+                        moveCamera(newLatLng,mapObject.DEFAULT_ZOOM,"MyCurrentLocation")
                     }else{
                         Toast.makeText(this@MapsActivity,"Unable to find the current location",Toast.LENGTH_SHORT).show()
                     }
@@ -76,19 +147,20 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     }
 
-    private fun moveCamera(latLang:LatLng,zoom:Float){
+    private fun moveCamera(latLang:LatLng,zoom:Float,title:String){
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLang,zoom))
-
+        val markerOptions=MarkerOptions().position(latLang).title(title)
+        mMap.addMarker(markerOptions)
 
     }
         private fun initMap(){
-            binding = ActivityMapsBinding.inflate(layoutInflater)
-            setContentView(binding.root)
+
 
 
             val mapFragment = supportFragmentManager
                 .findFragmentById(R.id.map) as SupportMapFragment
             mapFragment.getMapAsync(this)
+            Placeslist()
         }
 
    
@@ -110,6 +182,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             }else{
                 getDeviceLocation()
                 mMap.setMyLocationEnabled(true)
+                init()
             }
 
         }

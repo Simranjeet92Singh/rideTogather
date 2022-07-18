@@ -12,8 +12,14 @@
         <entry key="app/src/main/res/layout/activity_main_screen.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_map.xml" value="0.33177083333333335" />
         <entry key="app/src/main/res/layout/activity_maps.xml" value="0.30978260869565216" />
+
         <entry key="app/src/main/res/layout/fragment_date_picker.xml" value="0.23802083333333332" />
         <entry key="app/src/main/res/layout/fragment_time_picker.xml" value="0.23802083333333332" />
+
+        <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.33177083333333335" />
+        <entry key="app/src/main/res/layout/auto_complete_fragment.xml" value="0.3307291666666667" />
+        <entry key="app/src/main/res/layout/layout_item_places.xml" value="0.3307291666666667" />
+
       </map>
     </option>
   </component>
